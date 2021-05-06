@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-@FeignClient(name="delivery", url="http://localhost:8083")
+@FeignClient(name="delivery", url="${api.delivery.url}")
 public interface CancellationService {
 
     @RequestMapping(method= RequestMethod.POST, path="/cancellations")
