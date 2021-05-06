@@ -14,6 +14,15 @@ public class Order {
     private Integer qty;
     private String status;
 
+    @PrePersist
+    public void onPrePersist(){
+        try {
+            Thread.currentThread().sleep((long) (400 + Math.random() * 220));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    
     @PostPersist
     public void onPostPersist(){
         
@@ -23,14 +32,14 @@ public class Order {
         //mall.external.Product product = new mall.external.Product();
         // mappings goes here
 
-        boolean rslt = OrderApplication.applicationContext.getBean(mall.external.ProductService.class)
-        .modifyStock(this.getProductId(), this.getQty());
+        //boolean rslt = OrderApplication.applicationContext.getBean(mall.external.ProductService.class)
+        //.modifyStock(this.getProductId(), this.getQty());
         
-        if (rslt) {
+        //if (rslt) {
             Ordered ordered = new Ordered();
             BeanUtils.copyProperties(this, ordered);
             ordered.publishAfterCommit();
-        }
+        //}
     }
 
     @PreRemove
